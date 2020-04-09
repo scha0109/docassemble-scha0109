@@ -1,0 +1,108 @@
+---
+variable name: LASperson_info
+use objects: True
+data:
+  - First Name: Lucy 
+    Last Name: Schapel
+    Age: 22
+    Hobbies: Netball
+    Do you like pets?: True
+  - First Name: Eva
+    Last Name: Wodecki
+    Age: 59
+    Hobbies: Going to the gym
+    Do you like pets?: True
+  - First Name: Anthony 
+    Last Name: Schapel
+    Age: 65
+    Hobbies: Golf
+    Do you like pets?: True
+---
+mandatory: True
+question: Data Table as a Table
+subquestion: |
+
+  ${LAScolumn_header}
+  ${LASdashes}
+  %for LASitem in LAStable_rows: 
+  ${LASitem}
+  %endfor
+---
+code: |
+  LAScolumn_header = ""
+  
+  for LASitem in LASperson_info[0]:
+    LAScolumn_header += LASitem + '|'
+    
+  LAScolumn_header = LAScolumn_header[:-1]
+---
+code: |
+  LASdashes = '---'
+  for i in range(len(LASperson_info[0]) - 1):
+    LASdashes += '|---'
+---
+code: |
+  LAStable_rows = []
+  
+  for LASitem in LASperson_info: 
+    MDrow = ""
+    for LASkey in LASitem:
+      MDrow += str(LASitem[LASkey]) + '|'
+    MDrow = MDrow[:-1]
+    LAStable_rows.append(MDrow)
+---
+variable name: LASquestions
+use objects: True
+data:
+  - LASquestion: Confirm the below information for Lucy
+    LASchoices:
+      - Lucy 
+      - Schapel
+      - 22 years old
+      - Enjoys playing netball
+      - Likes pets
+  - LASquestion: Confirm the below information for Eva 
+    LASchoices:
+      - Eva
+      - Wodecki
+      - 59 years old
+      - Enjoys going to the gym
+      - Likes pets 
+  - LASquestion: Confirm the below information for Anthony
+    LASchoices:
+      - Anthony
+      - Schapel
+      - 64 years old
+      - Enjoys golf
+      - Likes pets 
+---
+mandatory: True
+question: 
+subquestion: |
+  #### Checkbox Results
+  
+  ${ LASquestion_table }
+
+attachment:
+  docx template file: LASjinjatable.docx
+buttons:
+  - Exit: exit
+  - Restart: restart
+---
+table: LASquestion_table
+rows:  LASquestions
+columns:
+  - Question: |
+      row_item['LASquestion']
+  - Selected answers: |
+      row_item['LASanswers'].true_values()
+  - No. Selected answers: |
+      len(row_item['LASanswers'].true_values())
+---
+question: |
+  ${ LASquestions[i]['LASquestion'] }
+fields:
+  - no label: LASquestions[i]['LASanswers']
+    datatype: checkboxes
+    code: LASquestions[i]['LASchoices']
+---
