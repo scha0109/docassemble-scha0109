@@ -1,0 +1,44 @@
+---
+objects:
+  - endpoint: DADict
+---
+# welcome screen.
+mandatory: True
+question: Ensuring Equality Reporting Form 
+subquestion: |
+  ***Welcome***
+  
+  The *Ensuring Equality Reporting Form* is an online software application tasked with...
+  
+  At law, discrimination represents...
+  
+  If you wish to access additional information regarding disability discrimination at law ...
+  
+  Additionally, if you wish to review more information regarding your rights before the law...  
+  
+  If you wish to continue and complete the *Ensuring Equality Reporting Form* press 'continue'
+buttons:
+  - "Continue": continue
+  - "Return to Home Page": exit
+    url: https://www.equalitylawyers.com.au/
+---
+# Disclaimer Screen 
+mandatory: True 
+question: DISCLAIMER
+subquestion: | 
+   
+   ***PURPOSE OF GENERATED DATA***
+   
+   It is important that users of the *Ensuring Equality Reporting Form* do not misconstrue any generated information or data as factual legal advice. This is simply a tool to assist in... 
+   
+   The use of the *Ensuring Equality Reporting Form* does not automatically engage the legal services of Equality Lawyers. Upon completion, users will be provided with...
+   
+   ***PRIVACY POLICY INSERT***
+   
+   Do you accept these terms and want to proceed? 
+buttons:
+  - "I accept and wish to continue": continue
+  - "I do not accept": exit
+    url: https://www.equalitylawyers.com.au/
+---
+#need tolink to the main body here 
